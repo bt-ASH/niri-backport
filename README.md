@@ -34,7 +34,7 @@ no more input formats
 首次构建需联网下载源码和 cargo 依赖，编译 Rust release 需要较长时间）。
 
 ```bash
-git clone https://github.com/bt-ash/niri-patched.git
+git clone https://github.com/bt-ash/niri-backport.git
 cd niri-patched
 
 # 校验补丁（可选）：确认来源
@@ -45,7 +45,7 @@ makepkg -f --nocheck
 
 构建完成后得到 `niri-26.04-1.1-x86_64.pkg.tar.zst`（及 debug 包），并安装。
 ```bash
-sudo pacman -U ~/build/niri-patched/niri-26.04-1.1-x86_64.pkg.tar.zst
+sudo pacman -U ~/build/niri-backport/niri-26.04-1.1-x86_64.pkg.tar.zst
 ```
 
 ## 验证 & 必要配置
