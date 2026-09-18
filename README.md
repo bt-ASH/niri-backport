@@ -40,7 +40,7 @@ no more input formats
 
 ```bash
 git clone https://github.com/bt-ash/niri-backport.git
-cd niri-patched
+cd niri-backprot
 
 # 校验补丁（可选）：确认来源
 # https://github.com/niri-wm/niri/pull/1791
