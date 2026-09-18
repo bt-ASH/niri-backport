@@ -1,4 +1,5 @@
 # niri 26.04 SHM 屏幕共享 backport
+> 版本大于26.04-1可以直接跳到 "验证 & 必要配置"
 
 将 niri 上游 PR [niri-wm/niri#1791](https://github.com/niri-wm/niri/pull/1791)
 （**Support shm sharing**）backport 到 Arch Linux 官方包 `niri 26.04` 的本地构建仓库。
@@ -33,24 +34,50 @@ no more input formats
 首次构建需联网下载源码和 cargo 依赖，编译 Rust release 需要较长时间）。
 
 ```bash
-git clone https://github.com/<你的用户名>/niri-shm-backport.git
-cd niri-shm-backport
+git clone https://github.com/bt-ash/niri-patched.git
+cd niri-patched
 
 # 校验补丁（可选）：确认来源
 # https://github.com/niri-wm/niri/pull/1791
 
-makepkg -sri
+makepkg -f
 ```
 
-构建完成后得到 `niri-26.04-1.1-x86_64.pkg.tar.zst`（及 debug 包），并自动安装。
+构建完成后得到 `niri-26.04-1.1-x86_64.pkg.tar.zst`（及 debug 包），并安装。
+```bash
+sudo pacman -U ~/build/niri-patched/niri-26.04-1.1-x86_64.pkg.tar.zst
+```
 
-## 验证
+## 验证 & 必要配置
 
 ```bash
-# 版本应为 26.04-1.1（官方包是 26.04-1，.1 后缀即本地补丁版）
-pacman -Qi niri | grep Version
+# 版本应为 26.04-1.1/版本>26.04-1.（官方包是 26.04-1，.1 后缀即本地补丁版）
+pacman -Qi niri
+
+# 确保有以下配置
+cat ~/.config/xdg-desktop-portal/niri-portal.conf
+  [preferred]
+  default=gnome;gtk;
+  org.freedesktop.impl.portal.Access=gtk;
+  org.freedesktop.impl.portal.Notification=gtk;
+  org.freedesktop.impl.portal.Secret=gnome-keyring;
+  org.freedesktop.impl.portal.ScreenCast=gnome;
+  org.freedesktop.impl.portal.Screenshot=gnome;
 ```
 
+在 ~/.config/niri/config.kdl配置启动项启动项
+```conf
+spawn-sh-at-startup "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=niri & /usr/lib/xdg-desktop-portal-gnome"
+```
+
+flatpak 启动腾讯会议
+```bash
+# 强制xwayland启动腾讯会议
+flatpak override --user --env=QT_QPA_PLATFORM=xcb com.tencent.wemeet
+# xwayland临时生效强制xwayland启动腾讯会议
+flatpak run --env=QT_QPA_PLATFORM=xcb com.tencent.wemeet
+
+```
 实际测试：在会议软件中共享屏幕，观察是否还出现
 `no more input formats`；也可看 PipeWire 协商日志：
 
