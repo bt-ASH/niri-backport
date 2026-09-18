@@ -1,0 +1,14 @@
+# makepkg 工作目录与产物
+/src/
+/pkg/
+*.pkg.tar.zst
+*.pkg.tar.xz
+*.log
+*.zsync
+.SRCINFO
+
+# 上游源码包（PKGBUILD 会自动重新下载）
+niri-26.04.tar.gz
+
+# 上游仓库的本地 clone（验证/cherry-pick 用，不属于本仓库内容）
+niri/
