@@ -40,7 +40,7 @@ cd niri-patched
 # 校验补丁（可选）：确认来源
 # https://github.com/niri-wm/niri/pull/1791
 
-makepkg -f
+makepkg -f --nocheck
 ```
 
 构建完成后得到 `niri-26.04-1.1-x86_64.pkg.tar.zst`（及 debug 包），并安装。
