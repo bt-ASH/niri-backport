@@ -28,6 +28,11 @@ no more input formats
 | `PKGBUILD` | 基于官方 `niri 26.04-1` 的 PKGBUILD 修改：加入补丁、`pkgrel` 改为 `1.1` 以区分本地重打包 |
 | `niri-shm-sharing.patch` | PR #1791 的完整改动，按上游逐个 commit cherry-pick 到 v26.04 后导出 |
 
+## 安装必要依赖
+```bash
+ sudo pacman -S xdg-desktop-portal xdg-desktop-portal-gnome xdg-desktop-portal-gtk gnome-keyring
+```
+
 ## 构建步骤
 
 依赖：`base-devel`、`rust`、`clang`（PKGBUILD 的 `makedepends` 会自动检查，
