@@ -39,12 +39,13 @@ no more input formats
 首次构建需联网下载源码和 cargo 依赖，编译 Rust release 需要较长时间）。
 
 ```bash
-git clone https://github.com/bt-ash/niri-backport.git
+# 选择最新的git包
+paru -Sy niri-git # or git clone https://github.com/bt-ash/niri-backport.git
 cd niri-backprot
 
 # 校验补丁（可选）：确认来源
 # https://github.com/niri-wm/niri/pull/1791
-
+# 使用最新的git跳到 验证 & 必要配置
 makepkg -f --nocheck
 ```
 
